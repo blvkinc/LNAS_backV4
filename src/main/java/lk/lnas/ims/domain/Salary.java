@@ -37,8 +37,8 @@ public class Salary {
     @Enumerated(EnumType.STRING)
     private SalaryStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @CreatedDate

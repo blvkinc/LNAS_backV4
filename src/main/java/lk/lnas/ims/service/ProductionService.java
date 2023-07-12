@@ -48,6 +48,10 @@ public class ProductionService {
     public Long create(final ProductionDTO productionDTO) {
         final Production production = new Production();
         mapToEntity(productionDTO, production);
+        plantRepository.findById(production.getId()).ifPresent(plant -> {
+            plant.setQtyAtHand(plant.getQtyAtHand()+productionDTO.getQty());
+            plantRepository.save(plant);
+        });
         return repository.save(production).getId();
     }
 

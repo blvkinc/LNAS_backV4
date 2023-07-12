@@ -50,8 +50,8 @@ public class Employee {
     )
     private Set<Farm> farms;
 
-    @OneToOne(mappedBy = "employee")
-    private Salary salary;
+    @OneToMany(mappedBy = "employee")
+    private Set<Salary> salary;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
