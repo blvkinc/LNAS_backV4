@@ -7,6 +7,7 @@ import lk.lnas.ims.service.ProductionService;
 import lk.lnas.ims.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -33,46 +37,46 @@ public class ReportResource {
     @GetMapping("/sales-summary")
     @PreAuthorize("hasAuthority('" + Roles.ADMIN + "')")
     public ResponseEntity<List<SalesSummaryDTO>> getSalesSummary(
-            @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
-            @RequestParam(value = "endDate", required = false) OffsetDateTime endDate
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate
     ) {
-        return ok(reportService.getSalesSummary(startDate, endDate));
+        return ok(reportService.getSalesSummary(LocalDate.parse(startDate).atStartOfDay().atOffset(ZoneOffset.UTC), LocalDate.parse(endDate).atStartOfDay().atOffset(ZoneOffset.UTC)));
     }
 
     @GetMapping("/production-summary")
     @PreAuthorize("hasAuthority('" + Roles.ADMIN + "')")
     public ResponseEntity<List<ProductionSummaryDTO>> getProductionSummary(
-            @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
-            @RequestParam(value = "endDate", required = false) OffsetDateTime endDate
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate
     ) {
-        return ok(reportService.getProductionSummary(startDate, endDate));
+        return ok(reportService.getProductionSummary(LocalDate.parse(startDate).atStartOfDay().atOffset(ZoneOffset.UTC), LocalDate.parse(endDate).atStartOfDay().atOffset(ZoneOffset.UTC)));
     }
 
     @GetMapping("/purchase-summary")
     @PreAuthorize("hasAuthority('" + Roles.ADMIN + "')")
     public ResponseEntity<List<PurchaseSummaryDTO>> getPurchaseSummary(
-            @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
-            @RequestParam(value = "endDate", required = false) OffsetDateTime endDate
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate
     ) {
-        return ok(reportService.getPurchaseSummary(startDate, endDate));
+        return ok(reportService.getPurchaseSummary(LocalDate.parse(startDate).atStartOfDay().atOffset(ZoneOffset.UTC), LocalDate.parse(endDate).atStartOfDay().atOffset(ZoneOffset.UTC)));
     }
 
     @GetMapping("/salary-summary")
     @PreAuthorize("hasAuthority('" + Roles.ADMIN + "')")
     public ResponseEntity<List<SalarySummaryDTO>> getSalarySummary(
-            @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
-            @RequestParam(value = "endDate", required = false) OffsetDateTime endDate
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate
     ) {
-        return ok(reportService.getSalarySummary(startDate, endDate));
+        return ok(reportService.getSalarySummary(LocalDate.parse(startDate).atStartOfDay().atOffset(ZoneOffset.UTC), LocalDate.parse(endDate).atStartOfDay().atOffset(ZoneOffset.UTC)));
     }
 
     @GetMapping("/farm-summary")
     @PreAuthorize("hasAuthority('" + Roles.ADMIN + "')")
     public ResponseEntity<List<FarmSummaryDTO>> getFarmSummary(
-            @RequestParam(value = "startDate", required = false) OffsetDateTime startDate,
-            @RequestParam(value = "endDate", required = false) OffsetDateTime endDate
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate
     ) {
-        return ok(reportService.getFarmSummary(startDate, endDate));
+        return ok(reportService.getFarmSummary(LocalDate.parse(startDate).atStartOfDay().atOffset(ZoneOffset.UTC), LocalDate.parse(endDate).atStartOfDay().atOffset(ZoneOffset.UTC)));
     }
 
     @GetMapping("/production/weekly-production")

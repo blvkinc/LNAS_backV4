@@ -36,9 +36,14 @@ public class UserResource {
         return ok(service.paginate(spec, pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") final Long id) {
         return ok(service.get(id));
+    }
+
+    @GetMapping("/by-email/{email}")
+    public ResponseEntity<UserDTO> getUserbyEmail(@PathVariable("email") final String email) {
+        return ok(service.getUserbyEmail(email));
     }
 
     @PostMapping

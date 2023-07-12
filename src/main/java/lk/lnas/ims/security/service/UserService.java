@@ -105,7 +105,7 @@ public class UserService implements UserDetailsService {
 
     public UserDTO mapToDTO(final User user, final UserDTO userDTO) {
         userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
+        userDTO.setUsername(user.getEmail());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());
@@ -123,7 +123,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void mapToEntity(final UserDTO userDTO, final User user) {
-        user.setUsername(userDTO.getUsername());
+        user.setUsername(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -155,6 +155,14 @@ public class UserService implements UserDetailsService {
         return repository.findByUsername(username);
     }
 
+    public UserDTO getUserbyEmail(String email){
+        return mapToDTO(repository.findByUsername(email),new UserDTO());
+    }
+
+    public Boolean isEmailAvailable(String email) {
+        User byUsername = repository.findByUsername(email);
+        return byUsername == null;
+    }
     public void createAdminIfNotExists() {
 
         List<User> admins = repository.findByRole(Role.SUPER_ADMIN);

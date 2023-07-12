@@ -101,6 +101,15 @@ public class AuthResource {
         }
     }
 
+    @GetMapping("/is-email-available")
+    public ResponseEntity<Void> isEmailAvailable(@RequestParam("email") String email) {
+        Boolean emailAvailable = userService.isEmailAvailable(email);
+        if (Boolean.TRUE.equals(emailAvailable)) {
+            return ResponseEntity.ok().body(null);
+        }else {
+            throw new ApplicationSecurityException(HttpStatus.BAD_REQUEST, "EMAIL_NOT_AVAILABLE", "Email is not available");
+        }
+    }
     private AuthResponseDTO generateAuthResponse(UserDetails userDetails, Role role) {
         AuthResponseDTO authResponse = new AuthResponseDTO();
         authResponse.setAccessToken(tokenService.generateAccessToken(userDetails, role));

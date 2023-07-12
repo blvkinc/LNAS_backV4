@@ -40,10 +40,10 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
+    @Column
     private String phone;
 
-    @Column(unique = true)
+    @Column
     private String address;
 
     @Column(nullable = false)
